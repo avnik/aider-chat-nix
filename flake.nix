@@ -30,5 +30,7 @@
                         in aider-chat;
                 };
             };
+                python3Packages = aiderPython.pkgs;
+                aider-chat = aiderPython.pkgs.callPackage ./aider-chat.nix { inherit python3Packages; };
         };
 }
