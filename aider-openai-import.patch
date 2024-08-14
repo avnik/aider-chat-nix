@@ -1,0 +1,28 @@
+diff --git a/aider/coders/openai_chat.py b/aider/coders/openai_chat.py
+index abcdefg..hijklmn 100644
+--- a/aider/coders/openai_chat.py
++++ b/aider/coders/openai_chat.py
+@@ -4,7 +4,12 @@ import time
+ from typing import Any, Dict, List, Optional
+ 
+ import openai
+-from openai.error import APIError, RateLimitError, ServiceUnavailableError, Timeout
++try:
++    # For newer versions of the openai package
++    from openai import APIError, RateLimitError, APIConnectionError as ServiceUnavailableError
++except ImportError:
++    # For older versions of the openai package
++    from openai.error import APIError, RateLimitError, ServiceUnavailableError, Timeout
+ 
+ from ..dump import dump  # noqa: F401
+ 
+@@ -111,7 +116,7 @@ class OpenAIChat:
+                 raise
+             except ServiceUnavailableError as e:
+                 self.io.tool_error(f"OpenAI API service unavailable: {e}")
+-            except Timeout as e:
++            except (Timeout, APIConnectionError) as e:
+                 self.io.tool_error(f"OpenAI API timeout: {e}")
+             except Exception as e:
+                 self.io.tool_error(f"OpenAI API error: {e}")
+
