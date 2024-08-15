@@ -11,7 +11,7 @@ python3Packages.buildPythonPackage rec {
     owner = "paul-gauthier";
     repo = "grep-ast";
     rev = "main"; # You can replace this with a specific commit hash if you want
-    sha256 = "0000000000000000000000000000000000000000000000000000"; # Replace with the correct hash
+    sha256 = "sha256-vrkplkOZdBYibbEK0pYPvVU/AQ6+d8BX6KcUWA8aX1o="; # Replace with the correct hash
   };
 
   # If there are any build dependencies, add them here

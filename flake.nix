@@ -22,11 +22,12 @@
                         aiderPython = pkgs.python312.override {
                             packageOverrides = python-self: python-super: {
                                 grep-ast = python-self.callPackage ./grep-ast.nix {};
-                                tree-sitter = builtins.trace "FIXED" python-super.tree-sitter_0_21;
-                                tree-sitter-languages = builtins.trace "FIXXXED" python-super.tree-sitter-languages.override { tree-sitter = builtins.trace "${python-super.tree-sitter_0_21.version}" python-super.tree-sitter_0_21; };
+                                tree-sitter = python-super.tree-sitter_0_21;
+#                                tree-sitter-languages = builtins.trace "FIXXXED" python-super.tree-sitter-languages.override { tree-sitter = builtins.trace "${python-super.tree-sitter_0_21.version}" python-super.tree-sitter_0_21; };
                             };
                         };
-                        aider-chat = aiderPython.pkgs.callPackage ./aider-chat.nix {};
+                        python3Packages = aiderPython.pkgs;
+                        aider-chat = aiderPython.pkgs.callPackage ./aider-chat.nix { inherit python3Packages; };
                         in aider-chat;
                 };
             };
